@@ -30,7 +30,7 @@ def m_cos(x, terms):
     """
     result = 0
     for n in range(terms):
-        result += (-1)**n * (x**(2*n)) / math.factorial(2*n)
+        result += (-1)**n * (x(2*n)) / math.factorial(2*n)
     return result
 
 
@@ -66,6 +66,16 @@ def m_sinh(x, terms):
     return result
 
 
+def m_cosh(x, terms):
+    """
+    Функция cosh(x) с использованием ряда Тейлора.
+    """
+    result = 0
+    for n in range(terms):
+        result += (x**(2*n)) / math.factorial(2*n)
+    return result
+
+
 def main_menu():
     """
     Показывает меню пользователя, где можно выбрать функцию, ввести x и получить результат.
@@ -76,12 +86,13 @@ def main_menu():
         print("\nМеню:\n"+
               "1. Вычислить cos(x)\n"+
               "2. Вычислить sinh(x)\n"+
-              "3. Выход")
+              "3. Вычислить cosh(x)\n" +
+              "4. Выход")
         choice = input("Выберите опцию : ")
-        if choice == '3':
+        if choice == '4':
             print("Выход из программы...")
             break
-        if choice not in {'1', '2'}:
+        if choice not in {'1', '2', '3'}:
             print("Неверный выбор. Попробуйте снова.")
             continue
         if choice == '1':
@@ -100,4 +111,14 @@ def main_menu():
                 continue
             result = m_sinh(x, terms)
             print(f"sinh({x}) ≈ {result}")
-            
+        elif choice == '3':
+            try:
+                x = float(input("Введите значение x: "))
+            except ValueError:
+                print("Ошибка: введите корректное число.")
+                continue
+            result = m_cosh(x, terms)
+            print(f"cosh({x}) ≈ {result}")
+
+if __name__ == "__main__":
+    main_menu()
